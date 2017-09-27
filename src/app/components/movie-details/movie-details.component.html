@@ -1,0 +1,19 @@
+<div *ngIf="movie">
+  <div class="movieDetail" [ngStyle]="{background: 'url(https://image.tmdb.org/t/p/original' + movie.backdrop_path + ') no-repeat center center transparent'}"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <img class="mb-3" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }} Poster">
+        <p *ngIf="movie.homepage" class="text-center"><a href="{{ movie.homepage }}" target="_blank" class="btn btn-primary btn-block">Website</a></p>
+      </div>
+      <div class="col-md-8">
+        <h3 class="display-4">{{ movie.original_title }}</h3>
+        <ul class="list-group">
+          <li class="list-group-item">Release Date: {{ movie.release_date | date:'longDate'  }}</li>
+          <li *ngIf="movie.status == 'Released'" class="list-group-item">Revenue: {{ movie.revenue | currency:'USD':true }}</li>
+          <li class="list-group-item">Runtime: {{ runTime }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

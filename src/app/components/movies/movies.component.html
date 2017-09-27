@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron jumbotron-fluid pl-4 pr-4">
+        <h1 class="display-3 text-center">Hello, world!</h1>
+        <app-search-movie></app-search-movie>
+      </div>
+    </div>
+  </div>
+  <div class="movies mb-4">
+    <div class="card">
+      <h4 class="card-header">Upcoming</h4>
+      <div class="card-body">
+        <div class="row">
+          <div *ngFor="let pMovie of upcomingLists;let rate of rating" class="col-sm-6 col-md-3 mb-3">
+            <app-movie [movie]="pMovie" [rating]="rate"></app-movie>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="movies mb-4">
+    <div class="card">
+      <h4 class="card-header">Popular</h4>
+      <div class="card-body">
+        <div class="row">
+          <div *ngFor="let pMovie of popularLists" class="col-sm-6 col-md-3 mb-3">
+            <app-movie [movie]="pMovie"></app-movie>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="movies mb-4">
+    <div class="card">
+      <h4 class="card-header">Top Rated</h4>
+      <div class="card-body">
+        <div class="row">
+          <div *ngFor="let pMovie of topRatedLists" class="col-sm-6 col-md-3 mb-3">
+            <app-movie [movie]="pMovie"></app-movie>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
