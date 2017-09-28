@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search-movie',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-movie.component.css']
 })
 export class SearchMovieComponent implements OnInit {
+  searchStr: string;
+  @Output() searchVal: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  searchMovie() {
+    if(this.searchStr != '') {
+      this.searchVal.emit(this.searchStr);
+    }
   }
 
 }

@@ -1,18 +1,101 @@
 <div *ngIf="movie">
   <div class="movieDetail" [ngStyle]="{background: 'url(https://image.tmdb.org/t/p/original' + movie.backdrop_path + ') no-repeat center center transparent'}"></div>
   <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <img class="mb-3" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }} Poster">
-        <p *ngIf="movie.homepage" class="text-center"><a href="{{ movie.homepage }}" target="_blank" class="btn btn-primary btn-block">Website</a></p>
+    <div class="card mb-4">
+      <h3 class="card-header display-4 text-white bg-dark">{{ movie.original_title }}</h3>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <img *ngIf="movie.poster_path != null; else posterDefaultPhoto" class="mb-3" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }} Poster">
+            <ng-template #posterDefaultPhoto><img src="assets/photo.png" class="card-img-top" alt="No Poster Image"></ng-template>
+            <p *ngIf="movie.homepage" class="text-center"><a href="{{ movie.homepage }}" target="_blank" class="btn btn-primary btn-block">Website</a></p>
+          </div>
+          <div class="col-md-8">
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Sypnosis:</strong> {{ movie.overview }}</li>
+              <li *ngIf="movie.vote_average != 0" class="list-group-item"><strong>Rating:</strong>
+                <span title="{{ movie.vote_average }}">
+                  <i *ngFor="let full of fulls" class="full fa fa-star" aria-hidden="true"></i><!--
+                --><i *ngFor="let half of halfs" class="fa fa-star-half-o" aria-hidden="true"></i><!--
+                --><i *ngFor="let empty of emptys" class="fa fa-star-o" aria-hidden="true"></i>
+                </span>
+              </li>
+              <li class="list-group-item"><strong>Release Date:</strong> {{ movie.release_date | date:'longDate'  }}</li>
+              <li *ngIf="movie.budget != 0" class="list-group-item"><strong>Budget:</strong> {{ movie.budget | currency:'USD':true }}</li>
+              <li *ngIf="movie.revenue != 0" class="list-group-item"><strong>Revenue:</strong> {{ movie.revenue | currency:'USD':true }}</li>
+              <li *ngIf="movie.runtime != 0" class="list-group-item"><strong>Runtime:</strong> {{ runTime }}</li>
+              <li class="list-group-item"><strong>Genres:</strong> <span *ngFor="let genre of movie.genres; let lastItem = last">{{ genre.name }}{{ lastItem ? '' : ', ' }}</span></li>
+              <li *ngIf="movie.production_companies.length" class="list-group-item"><strong>Production Companies:</strong> <span *ngFor="let company of movie.production_companies; let lastItem = last">{{ company.name }}{{ lastItem ? '' : ', ' }}</span></li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="col-md-8">
-        <h3 class="display-4">{{ movie.original_title }}</h3>
-        <ul class="list-group">
-          <li class="list-group-item">Release Date: {{ movie.release_date | date:'longDate'  }}</li>
-          <li *ngIf="movie.status == 'Released'" class="list-group-item">Revenue: {{ movie.revenue | currency:'USD':true }}</li>
-          <li class="list-group-item">Runtime: {{ runTime }}</li>
-        </ul>
+    </div>
+    <div id="accordion" role="tablist" class="mb-4">
+      <div class="card">
+        <div class="card-header" role="tab" id="headingOne">
+          <h5 class="mb-0">
+            <a data-toggle="collapse" href="#credits" aria-expanded="true" aria-controls="credits">
+              Credits
+            </a>
+          </h5>
+        </div>
+        <div id="credits" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+          <div class="card-body">
+            <h6>Cast</h6>
+            <div class="row">
+              <div *ngFor="let cast of casts" class="col-sm-3 mb-3">
+                <div class="card">
+                    <img *ngIf="cast.profile_path != null; else castDefaultPhoto" class="card-img-top" src="https://image.tmdb.org/t/p/w342{{ cast.profile_path }}" alt="{{ cast.name }} Profile Picture">
+                    <ng-template #castDefaultPhoto><img src="assets/photo.png" class="card-img-top" alt="No Profile Picture"></ng-template>
+                    <div class="card-body">
+                      <p class="card-text text-center"><strong>{{ cast.name }}</strong> as {{ cast.character }}</p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <h6>Crew</h6>
+            <div class="row">
+              <div *ngFor="let director of directors" class="col-sm-3 mb-3">
+                <div class="card">
+                    <img *ngIf="director.profile_path != null; else directorDefaultPhoto" class="card-img-top" src="https://image.tmdb.org/t/p/w342{{ director.profile_path }}" alt="{{ director.name }} Profile Picture">
+                    <ng-template #directorDefaultPhoto><img src="assets/photo.png" class="card-img-top" alt="No Profile Picture"></ng-template>
+                    <div class="card-body">
+                      <p class="card-text text-center"><strong>{{ director.name }}</strong><br> {{ director.job }}</p>
+                    </div>
+                  </div>
+              </div>
+              <div *ngFor="let producer of producers" class="col-sm-3 mb-3">
+                <div class="card">
+                    <img *ngIf="producer.profile_path != null; else producerDefaultPhoto" class="card-img-top" src="https://image.tmdb.org/t/p/w342{{ producer.profile_path }}" alt="{{ producer.name }} Profile Picture">
+                    <ng-template #producerDefaultPhoto><img src="assets/photo.png" class="card-img-top" alt="No Profile Picture"></ng-template>
+                    <div class="card-body">
+                      <p class="card-text text-center"><strong>{{ producer.name }}</strong><br> {{ producer.job }}</p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" role="tab" id="headingTwo">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Trailers
+            </a>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="card-body">
+            <div class="row">
+              <div *ngFor="let video of videoUrls" class="col-sm-6 mb-3">
+                <iframe height="300" allowfullscreen="allowfullscreen" frameborder="0" class="youtubeVideo" [src]="video"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

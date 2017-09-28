@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-md-12">
       <div class="jumbotron jumbotron-fluid pl-4 pr-4">
-        <h1 class="display-3 text-center">Hello, world!</h1>
-        <app-search-movie></app-search-movie>
+        <h1 class="display-4 text-center">Find a Movie by typing in the form below.</h1>
+        <app-search-movie (searchVal)="searchMovie($event)"></app-search-movie>
       </div>
     </div>
   </div>

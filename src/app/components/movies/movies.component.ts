@@ -37,4 +37,12 @@ export class MoviesComponent implements OnInit {
   ngOnInit() {
   }
 
+  searchMovie(searchStr: string) {
+    if(searchStr != '') {
+      alert(searchStr);
+    } else {
+      return;
+    }
+  }
+
 }
