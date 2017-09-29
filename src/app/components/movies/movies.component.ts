@@ -7,10 +7,13 @@ import { MovieService } from '../../services/movie.service';
   styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent implements OnInit {
+  searchLists: Array<Object> = [];
   popularLists: Array<Object> = [];
   topRatedLists: Array<Object> = [];
   upcomingLists: Array<Object> = [];
   rating: Array<number> = [];
+  emptyResult: boolean = false;
+  showResult: boolean = false;
 
   constructor(private movieService: MovieService) {
     this.movieService.getPopular().subscribe(res => {
@@ -38,11 +41,50 @@ export class MoviesComponent implements OnInit {
   }
 
   searchMovie(searchStr: string) {
-    if(searchStr != '') {
-      alert(searchStr);
+    // if(searchStr.trim() != '') {
+    //   this.showResult = true;
+    //   let movieStr = searchStr.trim();
+    //   this.movieService.searchMovie(movieStr).subscribe(res => {
+    //     if(res.results.length != 0) {
+    //       this.searchLists = [];
+    //       for(let i = 0; i < 16; i++) {
+    //         if(res.results[i] != undefined) {
+    //           this.searchLists.push(res.results[i]);
+    //         }
+    //       }
+    //       this.emptyResult = false;
+    //     } else {
+    //       this.emptyResult = true;
+    //     }
+    //     console.log(this.searchLists);
+        
+    //   });
+    // } else {
+    //   this.showResult = false;
+    //   // return;
+    // }
+
+
+    if(searchStr != undefined && searchStr.trim() != '') {
+      this.showResult = true;
+      let movieStr = searchStr.trim();
+      this.movieService.searchMovie(movieStr).subscribe(res => {
+        if(res.results.length != 0) {
+          this.searchLists = [];
+          for(let i = 0; i < 16; i++) {
+            if(res.results[i] != undefined) {
+              this.searchLists.push(res.results[i]);
+            }
+          }
+          this.emptyResult = false;
+        } else {
+          this.emptyResult = true;
+        }
+      });
     } else {
-      return;
+      this.showResult = false;
     }
+    
   }
 
 }

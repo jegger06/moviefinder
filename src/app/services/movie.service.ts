@@ -33,4 +33,9 @@ export class MovieService {
       .map(res => res.json());
   }
 
+  searchMovie(searchStr: string) {
+    return this.jsonp.get(`https://api.themoviedb.org/3/search/movie?callback=JSONP_CALLBACK&api_key=${this.apiKey}&query=${searchStr}`)
+      .map(res => res.json());
+  }
+
 }

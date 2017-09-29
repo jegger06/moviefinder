@@ -18,6 +18,8 @@ export class SearchMovieComponent implements OnInit {
   searchMovie() {
     if(this.searchStr != '') {
       this.searchVal.emit(this.searchStr);
+    } else {
+      return;
     }
   }
 

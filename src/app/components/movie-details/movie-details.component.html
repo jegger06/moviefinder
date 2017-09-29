@@ -12,7 +12,7 @@
           </div>
           <div class="col-md-8">
             <ul class="list-group">
-              <li class="list-group-item"><strong>Sypnosis:</strong> {{ movie.overview }}</li>
+              <li *ngIf="movie.overview" class="list-group-item"><strong>Sypnosis:</strong> {{ movie.overview }}</li>
               <li *ngIf="movie.vote_average != 0" class="list-group-item"><strong>Rating:</strong>
                 <span title="{{ movie.vote_average }}">
                   <i *ngFor="let full of fulls" class="full fa fa-star" aria-hidden="true"></i><!--
@@ -79,7 +79,7 @@
           </div>
         </div>
       </div>
-      <div class="card">
+      <div *ngIf="movie.videos.results.length != 0" class="card">
         <div class="card-header" role="tab" id="headingTwo">
           <h5 class="mb-0">
             <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">

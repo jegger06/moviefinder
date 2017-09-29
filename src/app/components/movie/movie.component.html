@@ -1,14 +1,15 @@
 <div class="card">
-  <img class="card-img-top" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }} poster">
+  <img *ngIf="movie.poster_path != null; else posterDefaultPhoto" class="card-img-top" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }} poster">
+  <ng-template #posterDefaultPhoto><img src="assets/photo.png" class="card-img-top" alt="No Poster Image"></ng-template>
   <div class="card-body">
     <h5 class="card-title font-weight-normal text-center"><a href="#" class="link" routerLink="/movie/{{ movie.id }}">{{ movie.original_title }}</a></h5>
     <p class="text-center">
-      <span *ngIf="!rating" class="rating d-block" title="{{ movie.vote_average }}">
+      <span *ngIf="!rating && movie.vote_average != 0" class="rating d-block" title="{{ movie.vote_average }}">
         <i *ngFor="let full of fulls" class="full fa fa-star" aria-hidden="true"></i><!--
         --><i *ngFor="let half of halfs" class="fa fa-star-half-o" aria-hidden="true"></i><!--
       --><i *ngFor="let empty of emptys" class="fa fa-star-o" aria-hidden="true"></i>
       </span>
-      Release Date: {{ movie.release_date | date }}
+      <span *ngIf="movie.release_date">Release Date: {{ movie.release_date | date }}</span>
     </p>
     <p class="text-center"><a href="#" class="btn btn-primary" routerLink="/movie/{{ movie.id }}">More Details</a></p>
   </div>

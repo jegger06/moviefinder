@@ -35,12 +35,14 @@ export class MovieDetailsComponent implements OnInit {
       const time = res.runtime;
       let hr = Math.floor(time / 60);
       let min = time % 60;
-      let hour = (hr == 0 ? '' : (hr > 1 ? hr+' hrs' : hr+ ' hr'));
-      let minutes = (min == 0 ? '' : (min > 1 ? ' & ' +min+ ' mins' : ' & '+min+' min'));
+      let hour = (hr == 0 ? '' : (hr > 1 ? hr+' hrs &' : hr+ ' hr &'));
+      let minutes = (min == 0 ? '' : (min > 1 ? ' ' +min+ ' mins' : ' '+min+' min'));
       this.runTime = hour + minutes;
       let cast = res.credits.cast;
       for(let i = 0; i < 4; i++) {
-        this.casts.push(cast[i]);
+        if(cast[i] != undefined) {
+          this.casts.push(cast[i]);
+        }
       }
       let searchCrew = res.credits.crew;
       for(let i = 0; i < searchCrew.length; i++) {
@@ -62,6 +64,12 @@ export class MovieDetailsComponent implements OnInit {
       this.fulls = Array(full).fill(1);
       this.halfs = Array(half).fill(2);
       this.emptys = Array(empty).fill(0);
+    }, (err) => {
+      console.log(err);
+      
+    }, () => {
+      console.log('Done');
+      
     });
   }
 

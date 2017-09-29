@@ -7,6 +7,19 @@
       </div>
     </div>
   </div>
+  <div *ngIf="showResult" class="movies mb-4">
+    <div class="card">
+      <h4 class="card-header">Search Results</h4>
+      <div class="card-body">
+        <div *ngIf="!emptyResult;else errorRes" class="row">
+          <div *ngFor="let pMovie of searchLists;let rate of rating" class="col-sm-6 col-md-3 mb-3">
+            <app-movie [movie]="pMovie"></app-movie>
+          </div>
+        </div>
+        <ng-template #errorRes><p class="text-center">No results found. Try changing the value of the input field.</p></ng-template>
+      </div>
+    </div>
+  </div>
   <div class="movies mb-4">
     <div class="card">
       <h4 class="card-header">Upcoming</h4>
