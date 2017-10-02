@@ -1,0 +1,10 @@
+:host {
+    display: block;
+}
+
+.imgHolder {
+    min-width: 243px;
+    width: 100%;
+    min-height: 356px;
+    height: 100%;
+}

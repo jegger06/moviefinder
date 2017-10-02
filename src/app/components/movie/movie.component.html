@@ -1,6 +1,8 @@
 <div class="card">
-  <img *ngIf="movie.poster_path != null; else posterDefaultPhoto" class="card-img-top" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }} poster">
-  <ng-template #posterDefaultPhoto><img src="assets/photo.png" class="card-img-top" alt="No Poster Image"></ng-template>
+  <div class="imgHolder">
+    <img *ngIf="movie.poster_path != null; else posterDefaultPhoto" class="card-img-top" src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }} poster">
+    <ng-template #posterDefaultPhoto><img src="assets/photo.png" class="card-img-top" alt="No Poster Image"></ng-template>
+  </div>
   <div class="card-body">
     <h5 class="card-title font-weight-normal text-center"><a href="#" class="link" routerLink="/movie/{{ movie.id }}">{{ movie.original_title }}</a></h5>
     <p class="text-center">
