@@ -11,6 +11,7 @@ export class MovieComponent implements OnInit {
   fulls: any = [];
   halfs: any;
   emptys: any;
+  imageLoading: boolean = true;
 
   constructor() { }
 
@@ -22,6 +23,10 @@ export class MovieComponent implements OnInit {
     this.fulls = Array(full).fill(1);
     this.halfs = Array(half).fill(2);
     this.emptys = Array(empty).fill(0);
+  }
+
+  imgLoaded() {
+    this.imageLoading = false;
   }
 
 }

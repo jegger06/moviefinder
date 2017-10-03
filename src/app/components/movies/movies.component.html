@@ -7,11 +7,14 @@
       </div>
     </div>
   </div>
-  <div *ngIf="showResult" class="movies mb-4">
+  <div @search *ngIf="showResult" class="movies mb-4">
     <div class="card">
       <h4 class="card-header">Search Results</h4>
+      <div *ngIf="loadingSearch" class="d-flex justify-content-center mt-5 mb-5">
+        <app-loader></app-loader>
+      </div>
       <div class="card-body">
-        <div *ngIf="!emptyResult;else errorRes" class="row">
+        <div *ngIf="!emptyResult;else errorRes" class="row" [@movieList]="searchLists.length">
           <div *ngFor="let pMovie of searchLists;let rate of rating" class="col-sm-6 col-md-3 mb-3">
             <app-movie [movie]="pMovie"></app-movie>
           </div>
@@ -24,7 +27,10 @@
     <div class="card">
       <h4 class="card-header">Upcoming</h4>
       <div class="card-body">
-        <div class="row">
+        <div *ngIf="loadingUpcoming" class="d-flex justify-content-center mt-5 mb-5">
+          <app-loader></app-loader>
+        </div>
+        <div @movies *ngIf="!loadingUpcoming" class="row">
           <div *ngFor="let pMovie of upcomingLists;let rate of rating" class="col-sm-6 col-md-3 mb-3">
             <app-movie [movie]="pMovie" [rating]="rate"></app-movie>
           </div>
@@ -36,7 +42,10 @@
     <div class="card">
       <h4 class="card-header">Popular</h4>
       <div class="card-body">
-        <div class="row">
+        <div *ngIf="loadingPopular" class="d-flex justify-content-center mt-5 mb-5">
+          <app-loader></app-loader>
+        </div>
+        <div @movies *ngIf="!loadingPopular" class="row">
           <div *ngFor="let pMovie of popularLists" class="col-sm-6 col-md-3 mb-3">
             <app-movie [movie]="pMovie"></app-movie>
           </div>
@@ -48,7 +57,10 @@
     <div class="card">
       <h4 class="card-header">Top Rated</h4>
       <div class="card-body">
-        <div class="row">
+        <div *ngIf="loadingTopRated" class="d-flex justify-content-center mt-5 mb-5">
+          <app-loader></app-loader>
+        </div>
+        <div @movies *ngIf="!loadingTopRated" class="row">
           <div *ngFor="let pMovie of topRatedLists" class="col-sm-6 col-md-3 mb-3">
             <app-movie [movie]="pMovie"></app-movie>
           </div>

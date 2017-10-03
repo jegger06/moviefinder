@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FormsModule } from '@angular/forms';
 
@@ -16,6 +17,7 @@ import { AboutComponent } from './components/about/about.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 import { MovieService } from './services/movie.service';
+import { LoaderComponent } from './components/loader/loader.component';
 
 const appRoutes: Routes = [
   {path: '', component: MoviesComponent},
@@ -32,13 +34,15 @@ const appRoutes: Routes = [
     MovieDetailsComponent,
     SearchMovieComponent,
     AboutComponent,
-    FooterComponent
+    FooterComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
     JsonpModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [MovieService],
   bootstrap: [AppComponent]
