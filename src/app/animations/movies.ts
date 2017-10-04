@@ -58,7 +58,7 @@ export const movieListTrigger = trigger('movieList', [
     transition('* => *', [
         query(':enter', style({ opacity: 0 }), { optional: true }),
 
-        query(':enter', stagger('300ms', [
+        query(':enter', stagger(50, [
             animate('1s ease-in', keyframes([
                 style({ opacity: 0, transform: 'translateY(-100px)', offset: 0}),
                 style({opacity: 0.5, transform: 'translateY(25px)', offset: 0.3}),
@@ -66,7 +66,7 @@ export const movieListTrigger = trigger('movieList', [
             ]))
         ]), {optional: true}),
 
-        query(':leave', stagger('300ms', [
+        query(':leave', stagger(50, [
             animate('1s ease-in', keyframes([
                 style({ opacity: 1, transform: 'translateY(0)', offset: 0}),
                 style({opacity: 0.5, transform: 'translateY(25px)', offset: 0.3}),
@@ -74,4 +74,39 @@ export const movieListTrigger = trigger('movieList', [
             ]))
         ]), {optional: true}),
     ])
-])
+]);
+
+export const movieImageTrigger = trigger('movieImage', [
+    transition(':enter', [
+        animate('600ms ease-in', keyframes([
+            style({
+                opacity: 0,
+                offset: 0
+            }),
+            style({
+                opacity: 0.4,
+                offset: 0.3
+            }),
+            style({
+                opacity: 1,
+                offset: 1
+            })
+        ]))
+    ]),
+    transition(':leave', [
+        animate('600ms ease-out', keyframes([
+            style({
+                opacity: 1,
+                offset: 0
+            }),
+            style({
+                opacity: 0.4,
+                offset: 0.3
+            }),
+            style({
+                opacity: 0,
+                offset: 1
+            })
+        ]))
+    ])
+]);

@@ -55,13 +55,13 @@ export class MoviesComponent implements OnInit {
 
   searchMovie(searchStr: string) {
     this.loadingSearch = true;
+    this.searchLists = [];
     if(searchStr != undefined && searchStr.trim() != '') {
       this.showResult = true;
       let movieStr = searchStr.trim();
       this.movieService.searchMovie(movieStr).subscribe(res => {
         if(res.results.length != 0) {
-          this.searchLists = [];
-          for(let i = 0; i < 16; i++) {
+          for(let i = 0; i < 8; i++) {
             if(res.results[i] != undefined) {
               this.searchLists.push(res.results[i]);
             }
@@ -69,9 +69,9 @@ export class MoviesComponent implements OnInit {
           this.emptyResult = false;
           this.loadingSearch = false;
         } else {
-          this.emptyResult = true;
           setTimeout(() => {
             this.loadingSearch = false;
+            this.emptyResult = true;
           }, 1000);
         }
       });

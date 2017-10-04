@@ -1,9 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { movieImageTrigger } from '../../animations/movies';
 
 @Component({
   selector: 'app-movie',
   templateUrl: './movie.component.html',
-  styleUrls: ['./movie.component.css']
+  styleUrls: ['./movie.component.css'],
+  animations: [
+    movieImageTrigger
+  ]
 })
 export class MovieComponent implements OnInit {
   @Input() movie: Object;
